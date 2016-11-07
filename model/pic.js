@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const picSchema = mongoose.Schema({
   name: {type: String, required: true},
@@ -10,9 +10,9 @@ const picSchema = mongoose.Schema({
   imageURI: {type: String, required: true, unique: true},
   objectKey: {type: String, required: true, unique: true},
   created: {type: Date, default: Date.now},
-})
+});
 
-module.exports = mongoose.model('pic', picSchema)
+module.exports = mongoose.model('pic', picSchema);
 
 //Pic.schema.path('name').validate(function(val) {
   //return /(slug|byte)/.test(val)

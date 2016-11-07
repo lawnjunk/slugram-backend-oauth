@@ -1,35 +1,35 @@
-'use strict'
+'use strict';
 
-const crypto = require('crypto')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const Promise = require('bluebird')
-const mongoose = require('mongoose')
-const createError = require('http-errors')
-const debug = require('debug')('slugram:user')
+const crypto = require('crypto');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const Promise = require('bluebird');
+const mongoose = require('mongoose');
+const createError = require('http-errors');
+const debug = require('debug')('slugram:user');
 
 // mondule constant
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 const userSchema = Schema({
   username: {type: String, required: true, unique: true, minlength: 5},
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
   findHash: {type: String, unique: true},
-})
+});
 
 // for signup
 // store a password that has been encrypted as a hash
 userSchema.methods.generatePasswordHash = function(password){
-  debug('generatePasswordHash')
+  debug('generatePasswordHash');
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, 10, (err, hash) => {
-      if (err) return reject(err) // 500 error
-      this.password = hash
-      resolve(this)
-    })
-  })
-}
+      if (err) return reject(err); // 500 error
+      this.password = hash;
+      resolve(this);
+    });
+  });
+};
 
 // for signin 
 // compare a plain text password with the stored hashed password
